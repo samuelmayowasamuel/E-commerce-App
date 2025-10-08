@@ -11,3 +11,11 @@ coverage
 *.log
 .env.local
 .env.*.local
+.pnp.*
+.pnp.json
+.cache
+.next
+out
+build
+logs
+*.tsbuildinfo
