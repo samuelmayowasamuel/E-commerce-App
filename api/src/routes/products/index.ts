@@ -8,14 +8,11 @@ import {
 } from "./controler";
 
 import { validateData } from "../../middleweres/validationMiddlewere";
-import z from "zod";
+import { createSelectSchema } from "drizzle-zod";
+import { productsTable } from "../../db/schema";
 
-export const productSchema = z.object({
-  name: z.string().min(1, "name cannot be empty"),
-  price: z.number().min(0, "price must be a positive number"),
-  image: z.string().url("image must be a valid URL"),
-  description: z.string().min(1, "description cannot be empty"),
-  quantity: z.number().min(0, "inStock must be a positive number"),
+const productSchema = createSelectSchema(productsTable).omit({
+  id: true,
 });
 
 const router = Router();
