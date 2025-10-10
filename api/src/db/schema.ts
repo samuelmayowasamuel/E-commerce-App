@@ -5,6 +5,7 @@ import {
   varchar,
   doublePrecision,
 } from "drizzle-orm/pg-core";
+import { createSelectSchema } from "drizzle-zod";
 
 export const productsTable = pgTable("products", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -14,3 +15,13 @@ export const productsTable = pgTable("products", {
   price: doublePrecision().notNull().notNull(),
   quantity: integer("quantity").notNull().default(0),
 });
+
+export const createProductSchema = createSelectSchema(productsTable).omit({
+  id: true,
+});
+
+export const updateProductSchema = createSelectSchema(productsTable)
+  .omit({
+    id: true,
+  })
+  .partial();

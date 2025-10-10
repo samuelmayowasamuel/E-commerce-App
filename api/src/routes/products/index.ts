@@ -8,22 +8,17 @@ import {
 } from "./controler";
 
 import { validateData } from "../../middleweres/validationMiddlewere";
-import { createSelectSchema } from "drizzle-zod";
-import { productsTable } from "../../db/schema";
-
-const productSchema = createSelectSchema(productsTable).omit({
-  id: true,
-});
+import { createProductSchema, updateProductSchema } from "../../db/schema";
 
 const router = Router();
 
 router.get("/", getAllProducts);
 
-router.post("/", validateData(productSchema), createProduct);
-
 router.get("/:id", getProductById);
 
-router.put("/:id", updateProductById);
+router.post("/", validateData(createProductSchema), createProduct);
+
+router.put("/:id", validateData(updateProductSchema), updateProductById);
 
 router.delete("/:id", deleteProductById);
 
