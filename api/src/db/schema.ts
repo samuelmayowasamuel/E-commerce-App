@@ -41,6 +41,9 @@ export const usersTable = pgTable("users", {
   username: varchar("username", { length: 255 }).notNull().unique(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  role: varchar("role", { length: 50 }).notNull().default("user"),
+  name: varchar("name", { length: 255 }),
+  avatar: varchar("avatar"),
   createdAt: integer("created_at")
     .notNull()
     .default(Math.floor(Date.now() / 1000)),
